@@ -36,12 +36,6 @@ export class GraphPage implements OnInit {
 
   ngOnInit() {
 
-    functionPlot({
-      target: '#my-graph',
-      data: [{
-        fn: 'x^2'
-      }]
-    });
   }
 
 
