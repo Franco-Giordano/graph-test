@@ -1,9 +1,34 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>graph</ion-title>
+  <ion-toolbar color="proba">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Graphing helper</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list-header color="light">Simple Bar Chart</ion-list-header>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>{{subtitle}}</ion-card-subtitle>
+      <ion-card-title>
+        {{title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div id="barChart"></div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>{{subtitle}}</ion-card-subtitle>
+      <ion-card-title>
+        {{title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div id="my-graph"></div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
