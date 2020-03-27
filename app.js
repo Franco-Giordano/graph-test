@@ -1,4 +1,24 @@
+
 const functInput = document.querySelector('#funct');
+const limpiarBtn = document.querySelector('#limpiar')
+
+limpiarBtn.addEventListener('click', () => {
+  functInput.value = '';
+})
+
+const button = document.querySelector('#login');
+button.addEventListener('click', handleButtonClick);
+
+async function handleButtonClick() {
+  const toast = await toastController.create({
+    color: 'dark',
+    duration: 2000,
+    message: 'Aun no disponible.',
+    showCloseButton: true
+  });
+
+  await toast.present();
+}
 
 const my_width = 800;
 const my_height = 400;
@@ -27,7 +47,6 @@ function myPlotFunct(funct, xPos) {
   })
 
   plotInstance.on('mousemove', (coords) => {
-    console.log(xPos)
     myPlotFunct(functInput.value,coords.x);
   });
 

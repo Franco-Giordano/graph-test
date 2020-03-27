@@ -19,6 +19,11 @@
 
     <link rel="shortcut icon" type="image/svg" href="./favicon.svg"/>
 
+    <script type="module">
+        import { toastController } from 'https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/index.esm.js';
+        window.toastController = toastController;
+    </script>
+
 </head>
 <body>
 <ion-app>
@@ -48,7 +53,7 @@
                                 <ion-input id="funct" placeholder="x^2" color="dark" value="x^2"></ion-input>
                             </ion-item>
                             <ion-button id="login"><ion-icon name="log-in"></ion-icon>Siguiente ejemplo</ion-button>
-                            <ion-button id="exit" fill="outline" color="danger"><ion-icon name="close" slot="start"></ion-icon>Limpiar</ion-button>
+                            <ion-button id="limpiar" fill="outline" color="danger"><ion-icon name="close" slot="start"></ion-icon>Limpiar</ion-button>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>
