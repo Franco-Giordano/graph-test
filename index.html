@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente</title>
+
+
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styling.css">
+
+
+    <script src="https://unpkg.com/d3@3/d3.min.js"></script>
+    <script src="https://unpkg.com/function-plot@1/dist/function-plot.js"></script>
+
+    <link rel="shortcut icon" type="image/svg" href="./favicon.svg"/>
+
+</head>
+<body>
+<ion-app>
+
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title>
+                Asistente en graficas
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-grid>
+            <ion-row>
+                <ion-col size-md="6" offset-md="3">
+                    <ion-card>
+                        <ion-card-header>
+                        <ion-card-title>Grafico simple</ion-card-title>
+                        </ion-card-header>
+
+                        <ion-card-content>
+                            
+                            <div id="graph"></div>
+
+                            <ion-item>
+                                <ion-label position='floating'>Funcion a graficar</ion-label>
+                                <ion-input id="funct" placeholder="x^2" color="dark" value="x^2"></ion-input>
+                            </ion-item>
+                            <ion-button id="login"><ion-icon name="log-in"></ion-icon>Siguiente ejemplo</ion-button>
+                            <ion-button id="exit" fill="outline" color="danger"><ion-icon name="close" slot="start"></ion-icon>Limpiar</ion-button>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-list id="usr-list">
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+            
+    </ion-content>
+    <ion-alert-controller></ion-alert-controller>
+</ion-app>
+
+    <script src="app.js"></script>
+</body>
+</html>
