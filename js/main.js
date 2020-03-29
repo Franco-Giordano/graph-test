@@ -1,6 +1,5 @@
-
 const functInput = document.querySelector('#funct');
-const limpiarBtn = document.querySelector('#limpiar')
+const limpiarBtn = document.querySelector('#limpiar');
 
 limpiarBtn.addEventListener('click', () => {
   functInput.value = '';
@@ -31,13 +30,25 @@ function myPlotFunct(funct, xPos) {
     plot = '0';
 
   plotInstance = functionPlot({
-    target: '#graph',
+    target: '#Y-X',
     data: [{
       fn: plot,
       attr: { "stroke-width": 3 },
       closed:true,
-      range: [-9999, xPos]
+      range: [-9999, xPos],
+      skipTip: true
     }, {
+      fn: plot,
+      attr: { "stroke-width": 1 },
+    }],
+    grid:true,
+    width: my_width,
+    height: my_height
+  });
+
+  let dist = functionPlot({
+    target: '#fx-X',
+    data: [{
       fn: plot,
       attr: { "stroke-width": 1 },
     }],
@@ -46,15 +57,20 @@ function myPlotFunct(funct, xPos) {
     height: my_height
   })
 
+  plotInstance.addLink(dist);
+
   plotInstance.on('mousemove', (coords) => {
     myPlotFunct(functInput.value,coords.x);
   });
+
+
+
 
 };
 
 var plotInstance = myPlotFunct('x^2', 0);
 
 
-functInput.addEventListener('ionChange', ()=> {
-  myPlotFunct(functInput.value, 0);
+functInput.addEventListener('ionChange', () => {
+  myPlotFunct(functInput.value, 0)
 });
