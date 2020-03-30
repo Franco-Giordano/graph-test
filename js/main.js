@@ -1,12 +1,27 @@
 const functInput = document.querySelector('#funct');
 const limpiarBtn = document.querySelector('#limpiar');
 
+
 limpiarBtn.addEventListener('click', () => {
   functInput.value = '';
 })
 
-const button = document.querySelector('#login');
-button.addEventListener('click', handleButtonClick);
+
+const bug = document.querySelector('#reportar-bug');
+bug.addEventListener('click', handleBugClick);
+
+async function handleBugClick() {
+  const alert = await alertController.create({
+    header: 'Reportar Error',
+    message: 'Envia un mail a fgiordano@fi.uba.ar o crea un nuevo issue en el repositorio de GitHub.',
+    buttons: ['Cerrar']
+  });
+
+  await alert.present();
+}
+
+const ejemplo = document.querySelector('#login');
+ejemplo.addEventListener('click', handleButtonClick);
 
 async function handleButtonClick() {
   const toast = await toastController.create({

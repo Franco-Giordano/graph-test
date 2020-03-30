@@ -18,8 +18,9 @@
     <link rel="shortcut icon" type="image/svg" href="./favicon.svg"/>
 
     <script type="module">
-        import { toastController } from 'https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/index.esm.js';
+        import { toastController, alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/index.esm.js';
         window.toastController = toastController;
+        window.alertController = alertController;
     </script>
 
 
@@ -40,9 +41,9 @@
     </ion-header>
     <ion-content>
         <ion-grid>
-            <ion-row>
+            <ion-row class="ion-justify-content-center">
 
-                <ion-col size-md="3" offset-md="2">
+                <ion-col size-md="3">
                     <ion-card>
                         <ion-card-header>
                         <ion-card-title>Configuracion</ion-card-title>
@@ -84,10 +85,24 @@
                 </ion-col>
 
             </ion-row>
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+                <ion-col size-md="2">
+                    <ion-note>(c) 2020 Franco Giordano. MIT License.</ion-note>
+                </ion-col>
+            </ion-row>
         </ion-grid>
+
+
+        <ion-fab title="Reportar Error" id="reportar-bug" vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button>
+              <ion-icon name="bug-outline"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
 
             
     </ion-content>
+
+
     <ion-alert-controller></ion-alert-controller>
 </ion-app>
 
