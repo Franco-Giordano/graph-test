@@ -35,6 +35,26 @@ async function handleBugClick() {
   await alert.present();
 }
 
+
+const ayuda = document.querySelector('#help');
+ayuda.addEventListener('click', handleHelpClick);
+
+async function handleHelpClick() {
+  const alert = await alertController.create({
+    header: 'Ayuda',
+    message: 'Grafica la funcion de distribucion de la variable aleatoria Y, que depende de X. Especifica el dominio (soporte) de la variable X, su funcion de densidad y la funcion que relaciona X e Y como Y(X)',
+    buttons: [
+      {
+        text: 'Cerrar',
+        role:'cancel'
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
 const ejemplo = document.querySelector('#next');
 ejemplo.addEventListener('click', handleButtonClick);
 
