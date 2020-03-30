@@ -84,7 +84,7 @@ const inputXto = document.querySelector('#X-to');
 
 
 // first plot
-drawAllGraphs('x^2', '1', 'log(x)', -1, 1);
+drawAllGraphs('x^2', '1/2', 'nthRoot(x, 1/2)', -1, 1);
 
 
 // set all event listeners (update graphs if any input changes)
@@ -142,14 +142,16 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
     data: [{
       fn: funcfY,
       attr: { "stroke-width": 5 },
-      range: [-1, 1],
+      range: [0, 1],
     }],
     grid:true,
     xAxis: {
       label: 'y',
+      domain: [-1/2,1.5]
     },
     yAxis: {
       label: 'fY(y)',
+      domain: [-1/2,1.5]
     },
     width: 400,
     height: my_height
