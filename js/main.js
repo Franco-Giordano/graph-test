@@ -19,8 +19,8 @@ async function handleButtonClick() {
   await toast.present();
 }
 
-const my_width = 800;
-const my_height = 400;
+const my_width = 700;
+const my_height = 300;
 
 function myPlotFunct(funct, xPos) {
 
@@ -69,6 +69,17 @@ function myPlotFunct(funct, xPos) {
 };
 
 var plotInstance = myPlotFunct('x^2', 0);
+
+functionPlot({
+  target: '#fy-Y',
+  data: [{
+    fn: 'log(x)',
+    attr: { "stroke-width": 1 },
+  }],
+  grid:true,
+  width: 425,
+  height: 300
+});
 
 
 functInput.addEventListener('ionChange', () => {

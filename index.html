@@ -30,6 +30,9 @@
 
     <ion-header>
         <ion-toolbar color="primary">
+            <ion-buttons collapse="true" slot="end">
+                <ion-button target="_blank" rel="noopener noreferrer" href="https://github.com/Franco-Giordano/graph-test"><ion-icon slot="icon-only" name="logo-github"></ion-icon></ion-button>
+              </ion-buttons> 
             <ion-title>
                 Graficador
             </ion-title>
@@ -38,7 +41,35 @@
     <ion-content>
         <ion-grid>
             <ion-row>
-                <ion-col size-md="6" offset-md="3">
+
+                <ion-col size-md="3" offset-md="2">
+                    <ion-card>
+                        <ion-card-header>
+                        <ion-card-title>Configuracion</ion-card-title>
+                        </ion-card-header>
+
+                        <ion-card-content>
+                            <ion-item>
+                                <ion-label position='floating'>Funcion a graficar</ion-label>
+                                <ion-input id="funct" placeholder="x^2" color="dark" value="x^2"></ion-input>
+                            </ion-item>
+                            <ion-button id="login"><ion-icon name="log-in"></ion-icon>Siguiente ejemplo</ion-button>
+                            <ion-button id="limpiar" fill="outline" color="danger"><ion-icon name="close" slot="start"></ion-icon>Limpiar</ion-button>
+                        </ion-card-content>
+                    </ion-card>
+
+                    <ion-card>
+                        <ion-card-header>
+                        <ion-card-title>Resultado</ion-card-title>
+                        </ion-card-header>
+
+                        <ion-card-content>
+                            <div id="fy-Y"></div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+
+                <ion-col size-md="5">
                     <ion-card>
                         <ion-card-header>
                         <ion-card-title>Grafico interactivo</ion-card-title>
@@ -48,22 +79,10 @@
                             
                             <div id="Y-X"></div>
                             <div id="fx-X"></div>
-
-                            <ion-item>
-                                <ion-label position='floating'>Funcion a graficar</ion-label>
-                                <ion-input id="funct" placeholder="x^2" color="dark" value="x^2"></ion-input>
-                            </ion-item>
-                            <ion-button id="login"><ion-icon name="log-in"></ion-icon>Siguiente ejemplo</ion-button>
-                            <ion-button id="limpiar" fill="outline" color="danger"><ion-icon name="close" slot="start"></ion-icon>Limpiar</ion-button>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-list id="usr-list">
-                    </ion-list>
-                </ion-col>
+
             </ion-row>
         </ion-grid>
 
