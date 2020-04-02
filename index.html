@@ -14,6 +14,9 @@
 
     <script src="https://unpkg.com/d3@3/d3.min.js"></script>
     <script src="js/function-plot.js"></script>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <link rel="shortcut icon" type="image/svg" href="./favicon.svg"/>
 
@@ -61,7 +64,7 @@
                                     </ion-col>
                                     <ion-col>
                                         <ion-item  class="ion-text-center">
-                                            <ion-label><&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<</ion-label>
+                                            <ion-label>\(\lt\)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(X\)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\lt\)</ion-label>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col>
@@ -75,7 +78,7 @@
                                 <ion-row>
                                     <ion-col>
                                     <ion-item>
-                                        <ion-label position='inline'>Y(X) =</ion-label>
+                                        <ion-label position='inline'>\(Y(X)\) =</ion-label>
                                         <ion-input disabled=true id="Y-X" placeholder="x^2" value="x^2"></ion-input>
                                     </ion-item>
                                     </ion-col>
@@ -84,7 +87,7 @@
                                 <ion-row>
                                     <ion-col>
                                     <ion-item>
-                                        <ion-label position='inline'>fx(X) =</ion-label>
+                                        <ion-label position='inline'>\(f_X(x)\) =</ion-label>
                                         <ion-input disabled=true id="fx-X" placeholder="1/2" value="1/2"></ion-input>
                                     </ion-item>
                                     </ion-col>
@@ -103,7 +106,7 @@
                     <ion-card>
                         <ion-card-header>
                             <ion-card-subtitle>Funcion de distribucion</ion-card-subtitle>
-                            <ion-card-title>Fy(Y) resultante</ion-card-title>
+                            <ion-card-title>\(F_Y(y)\) &nbsp;resultante</ion-card-title>
                         </ion-card-header>
 
                         <ion-card-content>
