@@ -256,7 +256,10 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
             },
             width: my_width,
             height: my_height
-        });        
+        });
+
+        instanceY.addLink(instancefx);
+        instancefx.addLink(instanceY);
 
     });
 
