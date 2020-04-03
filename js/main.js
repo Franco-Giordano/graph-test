@@ -67,8 +67,24 @@ async function handleButtonClick() {
     await toast.present();
 }
 
-const my_width = 750;
-const my_height = 350;
+// if < 770 -> GRAFICOS GRANDES
+
+var MOBILE_MODE = window.innerWidth < 770 ? true : false;
+
+function vwToPixel(value) {
+    return ((window.innerWidth * value) / 100);
+}
+
+function vhToPixel(value) {
+    return ((window.innerHeight * value) / 100);
+}
+
+var my_height, my_height, result_width;
+
+my_width = vwToPixel(MOBILE_MODE ? 90 : 39.0625);
+my_height = vhToPixel(MOBILE_MODE ? 60 : 38.0849);
+result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
+
 
 const inputY = document.querySelector('#Y-X');
 const inputfx = document.querySelector('#fx-X');
@@ -77,6 +93,21 @@ const inputXto = document.querySelector('#X-to');
 
 // first plot
 drawAllGraphs('x^2', '1/2', 'nthRoot(x, 1/2)', -1, 1);
+
+
+// redraw for resize event
+window.addEventListener('resize', () => {
+
+    MOBILE_MODE = window.innerWidth < 770 ? true : false;
+
+    my_width = vwToPixel(MOBILE_MODE ? 90 : 39.0625);
+    my_height = vhToPixel(MOBILE_MODE ? 60 : 38.0849);
+    result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
+
+    drawAllGraphs('x^2', '1/2', 'nthRoot(x, 1/2)', -1, 1);
+    
+});
+
 
 // set all event listeners (update graphs if any input changes)
 [inputY, inputfx, inputXfrom, inputXto].forEach(function (element) {
@@ -175,7 +206,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
                 1.5
             ]
         },
-        width: 400,
+        width:result_width,
         height: my_height
     });
 
