@@ -81,8 +81,8 @@ function vhToPixel(value) {
 
 var my_height, my_height, result_width;
 
-my_width = vwToPixel(MOBILE_MODE ? 90 : 39.0625);
-my_height = vhToPixel(MOBILE_MODE ? 60 : 38.0849);
+my_width = vwToPixel(MOBILE_MODE ? 90 : 39);
+my_height = vhToPixel(MOBILE_MODE ? 60 : 37);
 result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
 
 
