@@ -46,9 +46,9 @@ ayuda.addEventListener('click', handleHelpClick);
 async function handleHelpClick() {
     const alert = await alertController.create({
         header: 'Ayuda',
-        message: 'Grafica la funcion de distribucion de la variable aleatoria Y, que depende de X.' +
-                ' Especifica el dominio (soporte) de la variable X, su funcion de densidad y la f' +
-                'uncion que relaciona X e Y como Y(X)',
+        message: 'Grafica la <strong>funcion de distribucion de la variable aleatoria Y</strong>, que depende de X.' +
+                ' Trabaja con un ejemplo ya computado, detallado en la seccion Configuracion.<br>' +
+                ' Presiona el boton de reproducir mas abajo para ver, <strong>para cada valor de P(Y<=y), la region a integrar en X.</strong>',
         buttons: [
             {
                 text: 'Cerrar',
