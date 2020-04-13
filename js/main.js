@@ -127,6 +127,7 @@ window.addEventListener('resize', () => {
 
 function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
     let instanceY = functionPlot({
+        title: "Y(X)",
         target: '#Y-X-graph',
         data: [
             {
@@ -154,6 +155,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
     });
 
     let instancefx = functionPlot({
+        title: "Funcion de densidad de X",
         target: '#fx-X-graph',
         data: [
             {
@@ -182,6 +184,12 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
 
     let instancefy = functionPlot({
         target: '#Fy-Y-graph',
+        tip: {
+            xLine: true,    // dashed line parallel to y = 0
+            renderer: function (x, y, index) {
+              return '      y = ' + y;
+            }
+        },
         data: [
             {
                 fn: funcfY,
@@ -200,7 +208,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
             ]
         },
         yAxis: {
-            label: 'fY(y)',
+            label: 'FY(y)',
             domain: [
                 -1 / 2,
                 1.5
@@ -228,6 +236,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
         let myAnnotations = myAnnotationsX.concat([{y: givenY}]);
 
         instanceY = functionPlot({
+            title: "Y(X)",
             target: '#Y-X-graph',
             data: [
                 {
@@ -235,7 +244,24 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
                     attr: {
                         "stroke-width": 5
                     },
-                    range: [inputXfrom, inputXto]
+                    color:"red",
+                    range: allX
+                },
+                {
+                    fn: funcY,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "steelblue",
+                    range: [inputXfrom, allX[0]]
+                },
+                {
+                    fn: funcY,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "steelblue",
+                    range: [allX[1], inputXto]
                 }
             ],
             annotations: myAnnotations,
@@ -256,6 +282,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
         });
 
         instancefx = functionPlot({
+            title: "Funcion de densidad de X",
             target: '#fx-X-graph',
             data: [
                 {
@@ -267,7 +294,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
                 },
                 {
                     fn: funcfX,
-                    color:"steelblue",
+                    color:"red",
                     closed:true,
                     range: allX
                 }

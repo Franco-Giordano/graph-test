@@ -778,7 +778,7 @@
                     yLabel = canvas.selectAll("text.y.axis-label").data(function(d) {
                         return [d.yAxis.label].filter(Boolean)
                     });
-                    yLabel.enter().append("text").attr("class", "y axis-label").attr("y", 6).attr("dy", ".75em").attr("text-anchor", "end").attr("transform", "rotate(-90)");
+                    yLabel.enter().append("text").attr("class", "y axis-label").attr("font-size", "150%").attr("y", 6).attr("dy", ".75em").attr("text-anchor", "end").attr("transform", "rotate(-90)");
                     yLabel.text(function(d) {
                         return d
                     });
