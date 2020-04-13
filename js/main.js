@@ -1,3 +1,5 @@
+"use strict";
+
 const limpiarBtn = document.querySelector('#limpiar');
 
 limpiarBtn.addEventListener('click', () => {
@@ -79,7 +81,7 @@ function vhToPixel(value) {
     return ((window.innerHeight * value) / 100);
 }
 
-var my_height, my_height, result_width;
+var my_height, my_width, result_width;
 
 my_width = vwToPixel(MOBILE_MODE ? 90 : 39);
 my_height = vhToPixel(MOBILE_MODE ? 60 : 37);
@@ -92,7 +94,7 @@ const inputXfrom = document.querySelector('#X-from');
 const inputXto = document.querySelector('#X-to');
 
 // first plot
-drawAllGraphs('x^2', '1/2', 'nthRoot(x, 1/2)', -1, 1);
+drawAllGraphs('x^2', '1/2', 'nthRoot(x, 2)', -1, 1);
 
 
 // redraw for resize event
@@ -104,7 +106,7 @@ window.addEventListener('resize', () => {
     my_height = vhToPixel(MOBILE_MODE ? 60 : 38.0849);
     result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
 
-    drawAllGraphs('x^2', '1/2', 'nthRoot(x, 1/2)', -1, 1);
+    drawAllGraphs('x^2', '1/2', 'nthRoot(x, 2)', -1, 1);
     
 });
 
@@ -125,8 +127,11 @@ window.addEventListener('resize', () => {
 
  }
 
+ var instancefy, instancefx, instanceY;
+
 function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
-    let instanceY = functionPlot({
+
+    instanceY = functionPlot({
         title: "Y(X)",
         target: '#Y-X-graph',
         data: [
@@ -154,7 +159,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
         height: my_height
     });
 
-    let instancefx = functionPlot({
+    instancefx = functionPlot({
         title: "Funcion de densidad de X",
         target: '#fx-X-graph',
         data: [
@@ -182,7 +187,7 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
         height: my_height
     });
 
-    let instancefy = functionPlot({
+    instancefy = functionPlot({
         target: '#Fy-Y-graph',
         tip: {
             xLine: true,    // dashed line parallel to y = 0
@@ -221,120 +226,178 @@ function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
     instanceY.addLink(instancefx);
     instancefx.addLink(instanceY);
 
-    instancefy.on('tip:update', (x,y,index) =>{
-
-        let givenY = x;
-        let allX = findAllXs(funcY,givenY);
-
-        let myAnnotationsX = [];
-
-        let myX;
-        for (myX of allX) {
-            myAnnotationsX.push({x: myX});
-        };
-
-        let myAnnotations = myAnnotationsX.concat([{y: givenY}]);
-
-        instanceY = functionPlot({
-            title: "Y(X)",
-            target: '#Y-X-graph',
-            data: [
-                {
-                    fn: funcY,
-                    attr: {
-                        "stroke-width": 5
-                    },
-                    color:"red",
-                    range: allX
-                },
-                {
-                    fn: funcY,
-                    attr: {
-                        "stroke-width": 5,
-                    },
-                    color: "steelblue",
-                    range: [inputXfrom, allX[0]]
-                },
-                {
-                    fn: funcY,
-                    attr: {
-                        "stroke-width": 5,
-                    },
-                    color: "steelblue",
-                    range: [allX[1], inputXto]
-                }
-            ],
-            annotations: myAnnotations,
-            grid: true,
-            xAxis: {
-                label: 'x',
-                domain: [
-                    inputXfrom - 1,
-                    inputXto + 1
-                ]
-            },
-            yAxis: {
-                label: 'y(x)',
-                domain: [-0.5, 1.5]
-            },
-            width: my_width,
-            height: my_height
-        });
-
-        instancefx = functionPlot({
-            title: "Funcion de densidad de X",
-            target: '#fx-X-graph',
-            data: [
-                {
-                    fn: funcfX,
-                    attr: {
-                        "stroke-width": 5
-                    },
-                    range: [inputXfrom, inputXto]
-                },
-                {
-                    fn: funcfX,
-                    color:"red",
-                    closed:true,
-                    range: allX
-                }
-            ],
-            annotations: myAnnotationsX,
-            grid: true,
-            xAxis: {
-                label: 'x',
-                domain: [
-                    inputXfrom - 1,
-                    inputXto + 1
-                ]
-            },
-            yAxis: {
-                label: 'fX(x)',
-                domain: [-0.5, 1.5]
-            },
-            width: my_width,
-            height: my_height
-        });
-
-        instanceY.addLink(instancefx);
-        instancefx.addLink(instanceY);
-
-    });
+    instancefy.on('tip:update', updateGraphs);
 
 }
 
-// function myPlotFunct(functY, xPos) {   let plot = funct;   if (funct == '')
-// plot = '0';   plotInstance = functionPlot({     target: '#Y-X-graph',
-// data: [{       fn: plot,       attr: { "stroke-width": 3 },
-// closed:true,       range: [-9999, xPos],       skipTip: true     }, {
-// fn: plot,       attr: { "stroke-width": 1 },     }],     grid:true,
-// width: my_width,     height: my_height   });   let dist = functionPlot({
-// target: '#fx-X-graph',     data: [{       fn: plot,       attr: {
-// "stroke-width": 1 },     }],     grid:true,     width: my_width,     height:
-// my_height   })   plotInstance.addLink(dist);   plotInstance.on('mousemove',
-// (coords) => {     myPlotFunct(functInput.value,coords.x);   }); }; var
-// plotInstance = myPlotFunct('x^2', 0); functionPlot({   target: '#fy-Y-graph',
-// data: [{     fn: 'log(x)',     attr: { "stroke-width": 1 },   }],
-// grid:true,   width: 425,   height: 300 });
-// functInput.addEventListener('ionChange', () => {
-// myPlotFunct(functInput.value, 0) });
+function updateGraphs(x,y,index) {
+
+    let givenY = x;
+    let allX = findAllXs('x^2',givenY);
+
+    let myAnnotationsX = [];
+
+    let myX;
+    for (myX of allX) {
+        myAnnotationsX.push({x: myX});
+    };
+
+    let myAnnotations = myAnnotationsX.concat([{y: givenY}]);
+
+    instanceY = functionPlot({
+        title: "Y(X)",
+        target: '#Y-X-graph',
+        data: [
+            {
+                fn: 'x^2',
+                attr: {
+                    "stroke-width": 5
+                },
+                color:"red",
+                range: allX
+            },
+            {
+                fn: 'x^2',
+                attr: {
+                    "stroke-width": 5,
+                },
+                color: "steelblue",
+                range: [-1, allX[0]]
+            },
+            {
+                fn: 'x^2',
+                attr: {
+                    "stroke-width": 5,
+                },
+                color: "steelblue",
+                range: [allX[1], 1]
+            }
+        ],
+        annotations: myAnnotations,
+        grid: true,
+        xAxis: {
+            label: 'x',
+            domain: [
+                -1 - 1,
+                1 + 1
+            ]
+        },
+        yAxis: {
+            label: 'y(x)',
+            domain: [-0.5, 1.5]
+        },
+        width: my_width,
+        height: my_height
+    });
+
+    instancefx = functionPlot({
+        title: "Funcion de densidad de X",
+        target: '#fx-X-graph',
+        data: [
+            {
+                fn: '1/2',
+                attr: {
+                    "stroke-width": 5
+                },
+                range: [-1,1]
+            },
+            {
+                fn: '1/2',
+                color:"red",
+                closed:true,
+                range: allX
+            }
+        ],
+        annotations: myAnnotationsX,
+        grid: true,
+        xAxis: {
+            label: 'x',
+            domain: [
+                -1 - 1,
+                1 + 1
+            ]
+        },
+        yAxis: {
+            label: 'fX(x)',
+            domain: [-0.5, 1.5]
+        },
+        width: my_width,
+        height: my_height
+    });
+
+    instanceY.addLink(instancefx);
+    instancefx.addLink(instanceY);
+
+}
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+var playing = false;
+
+const play = document.querySelector('#play');
+play.addEventListener('click', handlePlayClick);
+
+async function handlePlayClick() {
+
+    if (playing)
+        return;
+
+    playing = true;
+    play.disabled = true;
+    for (let i = 0; i <= 1.01; i += 0.05) {
+
+        instancefy = functionPlot({
+            target: '#Fy-Y-graph',
+            tip: {
+                xLine: true,    // dashed line parallel to y = 0
+                renderer: function (x, y, index) {
+                  return 'y = ' + y;
+                }
+            },
+            data: [
+                {
+                    fn: 'nthRoot(x,2)',
+                    attr: {
+                        "stroke-width": 5
+                    },
+                    range: [0, 1],
+                    skipTip:true
+                }
+            ],
+            annotations: [{x: i}],
+            grid: true,
+            xAxis: {
+                label: 'y',
+                domain: [
+                    -1 / 2,
+                    1.5
+                ]
+            },
+            yAxis: {
+                label: 'FY(y)',
+                domain: [
+                    -1 / 2,
+                    1.5
+                ]
+            },
+            width:result_width,
+            height: my_height
+        });
+
+        instancefy.on('tip:update', updateGraphs);
+
+        instancefy.emit('tip:update', i, i, 0);
+
+        await sleep(100);
+    }
+
+    // reset graphs
+    drawAllGraphs('x^2', '1/2', 'nthRoot(x, 2)', -1, 1);
+
+    play.disabled=false;
+    playing=false;
+
+}

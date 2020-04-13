@@ -770,7 +770,7 @@
                     xLabel = canvas.selectAll("text.x.axis-label").data(function(d) {
                         return [d.xAxis.label].filter(Boolean)
                     });
-                    xLabel.enter().append("text").attr("class", "x axis-label").attr("text-anchor", "end");
+                    xLabel.enter().append("text").attr("class", "x axis-label").attr("text-anchor", "end").attr("font-size", "150%");
                     xLabel.attr("x", width).attr("y", height - 6).text(function(d) {
                         return d
                     });
