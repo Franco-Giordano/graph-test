@@ -65,7 +65,7 @@ customElements.define('modal-page', class extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
     <ion-content fullscreen class="ion-padding">
-      <ion-slides>
+      <ion-slides pager=true>
 
         <ion-slide>
             <img src="./media/equations.png"/>
