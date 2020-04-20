@@ -35,6 +35,10 @@ async function handleBugClick() {
     await alert.present();
 }
 
+const verEnunciado = document.querySelector('#ver-enunciado-button');
+verEnunciado.addEventListener('click', createEnunciadoModal);
+
+
 const ayuda = document.querySelector('#help');
 ayuda.addEventListener('click', createModal);
 
@@ -54,11 +58,13 @@ ayuda.addEventListener('click', createModal);
 
 //     await alert.present();
 // }
+let currentModal = null;
+
 
 customElements.define('modal-page', class extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-        <ion-content fullscreen class="ion-padding">
+    <ion-content fullscreen class="ion-padding">
       <ion-slides>
 
         <ion-slide>
@@ -122,11 +128,42 @@ customElements.define('modal-page', class extends HTMLElement {
   }
 });
 
-let currentModal = null;
+customElements.define('modal-enunciado', class extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Enunciado ` + getCurrentExcercise().displayText + `</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button onClick="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">` +
+  getCurrentExcercise().enunciado  +
+`</ion-content>
+`;
+MathJax.typeset();
+  }
+});
+
+
+
+async function createEnunciadoModal() {
+  const modal = await modalController.create({
+    component: 'modal-enunciado',
+  });
+
+  await modal.present();
+  currentModal = modal;
+}
+
 
 async function createModal() {
   const modal = await modalController.create({
-    component: 'modal-page'
+    component: 'modal-page',
   });
 
   await modal.present();
