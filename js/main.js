@@ -58,33 +58,27 @@ ayuda.addEventListener('click', createModal);
 customElements.define('modal-page', class extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-        <ion-content fullscreen class="ion-padding" scroll-y="false">
+        <ion-content fullscreen class="ion-padding">
       <ion-slides>
 
         <ion-slide>
-          <div class="slide">
-            <img src="./slide-1.png"/>
+            <img src="./media/equations.png"/>
             <h2>Graficador de Funciones de VAs</h2>
             <p>Esta aplicacion interactiva te permite visualizar la funcion de distribucion de una variable aleatoria expresada en funcion de otra.</p>
-          </div>
         </ion-slide>
 
         <ion-slide>
-          <img src="./slide-2.png"/>
-          <h2>What is Ionic?</h2>
-          <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.</p>
+          <img src="./media/slide-2.png"/>
+          <h2>Mira punto a punto el area a integrar</h2>
+          <p>Grafica la <strong>funcion de distribucion de la variable aleatoria Y</strong>, que depende de X. Trabaja con un ejemplo ya computado, detallado en la seccion Configuracion.</p>
         </ion-slide>
 
         <ion-slide>
-          <img src="./slide-3.png"/>
-          <h2>What is Ionic Appflow?</h2>
-          <p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.</p>
-        </ion-slide>
-
-        <ion-slide>
-          <img src="./slide-4.png"/>
+          <img src="./media/slide-4.png"/>
           <h2>Comienza a graficar!</h2>
-          <ion-button onclick="dismissModal()" fill="clear">Cerrar ayuda</ion-button>
+          <p>Presiona el boton de reproducir mas abajo para ver, <strong>para cada valor de P(Y<=y), la region a integrar en X.</strong></p>
+          <ion-button slot="end" onclick="dismissModal()" fill="clear">Cerrar ayuda</ion-button>
+
         </ion-slide>
 
       </ion-slides>
@@ -99,7 +93,7 @@ customElements.define('modal-page', class extends HTMLElement {
     }
 
     .swiper-slide h2 {
-      margin-top: 2.8rem;
+      margin-top: 1rem;
     }
 
     .swiper-slide img {

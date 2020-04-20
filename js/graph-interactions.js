@@ -18,18 +18,18 @@ function vhToPixel(value) {
 
 var my_height, my_width, result_width;
 
-my_width = vwToPixel(MOBILE_MODE ? 90 : 39);
+my_width = vwToPixel(MOBILE_MODE ? 80 : 36);
 my_height = vhToPixel(MOBILE_MODE ? 60 : 37);
-result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
+result_width = vwToPixel(MOBILE_MODE ? 80 : 22.5);
 
 // redraw for resize event
 window.addEventListener('resize', () => {
 
     MOBILE_MODE = window.innerWidth < 770 ? true : false;
 
-    my_width = vwToPixel(MOBILE_MODE ? 90 : 39.0625);
-    my_height = vhToPixel(MOBILE_MODE ? 60 : 38.0849);
-    result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
+    my_width = vwToPixel(MOBILE_MODE ? 80 : 36);
+    my_height = vhToPixel(MOBILE_MODE ? 60 : 37);
+    result_width = vwToPixel(MOBILE_MODE ? 80 : 22.5);
 
     drawAllGraphs(getCurrentExcercise());
     
@@ -38,16 +38,32 @@ window.addEventListener('resize', () => {
 
 // graph related code
 
-function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, stringY, stringFY, strYfrom, strYto, funcSolveXs) {
+function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, stringY, myFY, strYfrom, strYto, funcSolveXs) {
         this.displayText = strdisplayText;
         this.Xfrom = Number(stringXfrom);
         this.Xto = Number(stringXto);
         this.fX = stringfX;
         this.domainfx = domainfx;
         this.Y = stringY;
-        this.FY = stringFY;
+
         this.Yfrom = Number(strYfrom);
         this.Yto = Number(strYto);
+
+        if (typeof myFY === "string") {
+            this.FY = [
+                        {
+                            fn: myFY,
+                            attr: {
+                                "stroke-width": 5
+                            },
+                            range: [this.Yfrom, this.Yto]
+                        }
+                    ];
+        } else { // FY ES UNA FUNCION PARTIDA!
+            this.FY = myFY;
+        }
+        
+
         this.findAllXs = funcSolveXs;
 }
 
@@ -58,7 +74,18 @@ var ejerciciosResueltos = [
             "-2", "4",
             "1/6", [-0.5, 1/3],
             "x^2",
-            "nthRoot(x,2)",
+            [{  fn: "nthRoot(x,2)/3",
+                attr: {
+                "stroke-width": 5
+                },
+                range: [0, 4], color: "steelblue"
+            },
+            {  fn: "(nthRoot(x,2)+2)/6",
+                attr: {
+                "stroke-width": 5
+                },
+                range: [4, 16], color: "steelblue"
+            }],
             "0",
             "16",
             (givenY) => {return givenY < 4 ? [-Math.sqrt(givenY), Math.sqrt(givenY)]
@@ -122,8 +149,8 @@ function drawAllGraphs(excercise) {
     var inputfx = excercise.fX;
     var inputY = excercise.Y;
 
-    var inputFY = excercise.FY;
-
+    var funcFY = excercise.FY.concat([{fn: "0", color: "steelblue", range: [-1000, excercise.Yfrom], skipTip:true}, {fn: "1", color: "steelblue", range: [excercise.Yto, 1000], skipTip:true}]);
+    console.log(funcFY)
     instanceY = functionPlot({
         title: "Y(X)",
         target: '#Y-X-graph',
@@ -188,15 +215,7 @@ function drawAllGraphs(excercise) {
               return '      y = ' + y;
             }
         },
-        data: [
-            {
-                fn: inputFY,
-                attr: {
-                    "stroke-width": 5
-                },
-                range: [excercise.Yfrom, excercise.Yto]
-            }
-        ],
+        data: funcFY,
         grid: true,
         xAxis: {
             label: 'y',
@@ -335,7 +354,7 @@ async function handlePlayClick() {
 
     playing = true;
     play.disabled = true;
-    let stepSize = (currentExc.Yto - currentExc.Yfrom) / 20;
+    let stepSize = (currentExc.Yto - currentExc.Yfrom) / 118;
     for (let i = currentExc.Yfrom; i <= (currentExc.Yto + 0.01); i += stepSize) {
 
         instancefy = functionPlot({
@@ -346,16 +365,7 @@ async function handlePlayClick() {
                   return 'y = ' + y;
                 }
             },
-            data: [
-                {
-                    fn: currentExc.FY,
-                    attr: {
-                        "stroke-width": 5
-                    },
-                    range: [currentExc.Yfrom, currentExc.Yto],
-                    skipTip:true
-                }
-            ],
+            data: currentExc.FY,
             annotations: [{x: i}],
             grid: true,
             xAxis: {
@@ -377,7 +387,7 @@ async function handlePlayClick() {
 
         instancefy.emit('tip:update', i, i, 0);
 
-        await sleep(100);
+        await sleep(15);
     }
 
     // reset graphs
