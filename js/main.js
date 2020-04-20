@@ -1,10 +1,5 @@
 "use strict";
 
-const limpiarBtn = document.querySelector('#limpiar');
-
-limpiarBtn.addEventListener('click', () => {
-    functInput.value = '';
-})
 
 const bug = document.querySelector('#reportar-bug');
 bug.addEventListener('click', handleBugClick);
@@ -41,363 +36,111 @@ async function handleBugClick() {
 }
 
 const ayuda = document.querySelector('#help');
-ayuda.addEventListener('click', handleHelpClick);
+ayuda.addEventListener('click', createModal);
 
-async function handleHelpClick() {
-    const alert = await alertController.create({
-        header: 'Ayuda',
-        message: 'Grafica la <strong>funcion de distribucion de la variable aleatoria Y</strong>, que depende de X.' +
-                ' Trabaja con un ejemplo ya computado, detallado en la seccion Configuracion.<br>' +
-                ' Presiona el boton de reproducir mas abajo para ver, <strong>para cada valor de P(Y<=y), la region a integrar en X.</strong>',
-        buttons: [
-            {
-                text: 'Cerrar',
-                role: 'cancel'
-            }
-        ]
-    });
+// async function handleHelpClick() {
+//     const alert = await alertController.create({
+//         header: 'Ayuda',
+//         message: 'Grafica la <strong>funcion de distribucion de la variable aleatoria Y</strong>, que depende de X.' +
+//                 ' Trabaja con un ejemplo ya computado, detallado en la seccion Configuracion.<br>' +
+//                 ' Presiona el boton de reproducir mas abajo para ver, <strong>para cada valor de P(Y<=y), la region a integrar en X.</strong>',
+//         buttons: [
+//             {
+//                 text: 'Cerrar',
+//                 role: 'cancel'
+//             }
+//         ]
+//     });
 
-    await alert.present();
-}
+//     await alert.present();
+// }
 
-const ejemplo = document.querySelector('#next');
-ejemplo.addEventListener('click', handleButtonClick);
+customElements.define('modal-page', class extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+        <ion-content fullscreen class="ion-padding" scroll-y="false">
+      <ion-slides>
 
-async function handleButtonClick() {
-    const toast = await toastController.create({color: 'dark', duration: 2000, message: 'Aun no disponible.', showCloseButton: true});
+        <ion-slide>
+          <div class="slide">
+            <img src="./slide-1.png"/>
+            <h2>Graficador de Funciones de VAs</h2>
+            <p>Esta aplicacion interactiva te permite visualizar la funcion de distribucion de una variable aleatoria expresada en funcion de otra.</p>
+          </div>
+        </ion-slide>
 
-    await toast.present();
-}
+        <ion-slide>
+          <img src="./slide-2.png"/>
+          <h2>What is Ionic?</h2>
+          <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.</p>
+        </ion-slide>
 
-// if < 770 -> GRAFICOS GRANDES
+        <ion-slide>
+          <img src="./slide-3.png"/>
+          <h2>What is Ionic Appflow?</h2>
+          <p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.</p>
+        </ion-slide>
 
-var MOBILE_MODE = window.innerWidth < 770 ? true : false;
+        <ion-slide>
+          <img src="./slide-4.png"/>
+          <h2>Comienza a graficar!</h2>
+          <ion-button onclick="dismissModal()" fill="clear">Cerrar ayuda</ion-button>
+        </ion-slide>
 
-function vwToPixel(value) {
-    return ((window.innerWidth * value) / 100);
-}
-
-function vhToPixel(value) {
-    return ((window.innerHeight * value) / 100);
-}
-
-var my_height, my_width, result_width;
-
-my_width = vwToPixel(MOBILE_MODE ? 90 : 39);
-my_height = vhToPixel(MOBILE_MODE ? 60 : 37);
-result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
-
-
-const inputY = document.querySelector('#Y-X');
-const inputfx = document.querySelector('#fx-X');
-const inputXfrom = document.querySelector('#X-from');
-const inputXto = document.querySelector('#X-to');
-
-// first plot
-drawAllGraphs('x^2', '1/2', 'nthRoot(x, 2)', -1, 1);
-
-
-// redraw for resize event
-window.addEventListener('resize', () => {
-
-    MOBILE_MODE = window.innerWidth < 770 ? true : false;
-
-    my_width = vwToPixel(MOBILE_MODE ? 90 : 39.0625);
-    my_height = vhToPixel(MOBILE_MODE ? 60 : 38.0849);
-    result_width = vwToPixel(MOBILE_MODE ? 90 : 22.5);
-
-    drawAllGraphs('x^2', '1/2', 'nthRoot(x, 2)', -1, 1);
-    
-});
-
-
-// set all event listeners (update graphs if any input changes)
-[inputY, inputfx, inputXfrom, inputXto].forEach(function (element) {
-    element
-        .addEventListener('ionChange', function () {
-            drawAllGraphs(inputY.value, inputfx.value, inputfx.value, parseFloat(inputXfrom.value), parseFloat(inputXto.value));
-        });
-});
-
-// finds all x roots for a given function as Y(X) and Y value
- function findAllXs(funcY, givenY) {
-     
-    //hard coded for Y = X^2
-    return [-Math.sqrt(givenY), Math.sqrt(givenY)];
-
- }
-
- var instancefy, instancefx, instanceY;
-
-function drawAllGraphs(funcY, funcfX, funcfY, inputXfrom, inputXto) {
-
-    instanceY = functionPlot({
-        title: "Y(X)",
-        target: '#Y-X-graph',
-        data: [
-            {
-                fn: funcY,
-                attr: {
-                    "stroke-width": 5
-                },
-                range: [inputXfrom, inputXto]
-            }
-        ],
-        grid: true,
-        xAxis: {
-            label: 'x',
-            domain: [
-                inputXfrom - 1,
-                inputXto + 1
-            ]
-        },
-        yAxis: {
-            label: 'y(x)',
-            domain: [-0.5, 1.5]
-        },
-        width: my_width,
-        height: my_height
-    });
-
-    instancefx = functionPlot({
-        title: "Funcion de densidad de X",
-        target: '#fx-X-graph',
-        data: [
-            {
-                fn: funcfX,
-                attr: {
-                    "stroke-width": 5
-                },
-                range: [inputXfrom, inputXto]
-            }
-        ],
-        grid: true,
-        xAxis: {
-            label: 'x',
-            domain: [
-                inputXfrom - 1,
-                inputXto + 1
-            ]
-        },
-        yAxis: {
-            label: 'fX(x)',
-            domain: [-0.5, 1.5]
-        },
-        width: my_width,
-        height: my_height
-    });
-
-    instancefy = functionPlot({
-        target: '#Fy-Y-graph',
-        tip: {
-            xLine: true,    // dashed line parallel to y = 0
-            renderer: function (x, y, index) {
-              return '      y = ' + y;
-            }
-        },
-        data: [
-            {
-                fn: funcfY,
-                attr: {
-                    "stroke-width": 5
-                },
-                range: [0, 1]
-            }
-        ],
-        grid: true,
-        xAxis: {
-            label: 'y',
-            domain: [
-                -1 / 2,
-                1.5
-            ]
-        },
-        yAxis: {
-            label: 'FY(y)',
-            domain: [
-                -1 / 2,
-                1.5
-            ]
-        },
-        width:result_width,
-        height: my_height
-    });
-
-    instanceY.addLink(instancefx);
-    instancefx.addLink(instanceY);
-
-    instancefy.on('tip:update', updateGraphs);
-
-}
-
-function updateGraphs(x,y,index) {
-
-    let givenY = x;
-    let allX = findAllXs('x^2',givenY);
-
-    let myAnnotationsX = [];
-
-    let myX;
-    for (myX of allX) {
-        myAnnotationsX.push({x: myX});
-    };
-
-    let myAnnotations = myAnnotationsX.concat([{y: givenY}]);
-
-    instanceY = functionPlot({
-        title: "Y(X)",
-        target: '#Y-X-graph',
-        data: [
-            {
-                fn: 'x^2',
-                attr: {
-                    "stroke-width": 5
-                },
-                color:"red",
-                range: allX
-            },
-            {
-                fn: 'x^2',
-                attr: {
-                    "stroke-width": 5,
-                },
-                color: "steelblue",
-                range: [-1, allX[0]]
-            },
-            {
-                fn: 'x^2',
-                attr: {
-                    "stroke-width": 5,
-                },
-                color: "steelblue",
-                range: [allX[1], 1]
-            }
-        ],
-        annotations: myAnnotations,
-        grid: true,
-        xAxis: {
-            label: 'x',
-            domain: [
-                -1 - 1,
-                1 + 1
-            ]
-        },
-        yAxis: {
-            label: 'y(x)',
-            domain: [-0.5, 1.5]
-        },
-        width: my_width,
-        height: my_height
-    });
-
-    instancefx = functionPlot({
-        title: "Funcion de densidad de X",
-        target: '#fx-X-graph',
-        data: [
-            {
-                fn: '1/2',
-                attr: {
-                    "stroke-width": 5
-                },
-                range: [-1,1]
-            },
-            {
-                fn: '1/2',
-                color:"red",
-                closed:true,
-                range: allX
-            }
-        ],
-        annotations: myAnnotationsX,
-        grid: true,
-        xAxis: {
-            label: 'x',
-            domain: [
-                -1 - 1,
-                1 + 1
-            ]
-        },
-        yAxis: {
-            label: 'fX(x)',
-            domain: [-0.5, 1.5]
-        },
-        width: my_width,
-        height: my_height
-    });
-
-    instanceY.addLink(instancefx);
-    instancefx.addLink(instanceY);
-
-}
-
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-var playing = false;
-
-const play = document.querySelector('#play');
-play.addEventListener('click', handlePlayClick);
-
-async function handlePlayClick() {
-
-    if (playing)
-        return;
-
-    playing = true;
-    play.disabled = true;
-    for (let i = 0; i <= 1.01; i += 0.05) {
-
-        instancefy = functionPlot({
-            target: '#Fy-Y-graph',
-            tip: {
-                xLine: true,    // dashed line parallel to y = 0
-                renderer: function (x, y, index) {
-                  return 'y = ' + y;
-                }
-            },
-            data: [
-                {
-                    fn: 'nthRoot(x,2)',
-                    attr: {
-                        "stroke-width": 5
-                    },
-                    range: [0, 1],
-                    skipTip:true
-                }
-            ],
-            annotations: [{x: i}],
-            grid: true,
-            xAxis: {
-                label: 'y',
-                domain: [
-                    -1 / 2,
-                    1.5
-                ]
-            },
-            yAxis: {
-                label: 'FY(y)',
-                domain: [
-                    -1 / 2,
-                    1.5
-                ]
-            },
-            width:result_width,
-            height: my_height
-        });
-
-        instancefy.on('tip:update', updateGraphs);
-
-        instancefy.emit('tip:update', i, i, 0);
-
-        await sleep(100);
+      </ion-slides>
+    </ion-content>
+      <style>
+    ion-slides {
+      height: 100%;
     }
 
-    // reset graphs
-    drawAllGraphs('x^2', '1/2', 'nthRoot(x, 2)', -1, 1);
+    .swiper-slide {
+      display: block;
+    }
 
-    play.disabled=false;
-    playing=false;
+    .swiper-slide h2 {
+      margin-top: 2.8rem;
+    }
 
+    .swiper-slide img {
+      max-height: 50%;
+      max-width: 80%;
+      margin: 60px 0 40px;
+      pointer-events: none;
+    }
+
+    b {
+      font-weight: 500;
+    }
+
+    p {
+      padding: 0 40px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ion-color-step-600, #60646b);
+    }
+
+    p b {
+      color: var(--ion-text-color, #000000);
+    }
+  </style>
+`;
+  }
+});
+
+let currentModal = null;
+
+async function createModal() {
+  const modal = await modalController.create({
+    component: 'modal-page'
+  });
+
+  await modal.present();
+  currentModal = modal;
+}
+
+function dismissModal() {
+  if (currentModal) {
+    currentModal.dismiss().then(() => { currentModal = null; });
+  }
 }

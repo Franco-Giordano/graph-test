@@ -21,9 +21,10 @@
     <link rel="shortcut icon" type="image/svg" href="./favicon.svg"/>
 
     <script type="module">
-        import { toastController, alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/index.esm.js';
+        import { toastController, alertController, modalController } from 'https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/index.esm.js';
         window.toastController = toastController;
         window.alertController = alertController;
+        window.modalController = modalController;
     </script>
 
 
@@ -57,11 +58,25 @@
 
                         <ion-card-content>
                             <ion-grid>
-                                <ion-row class="ion-align-items-end">
+                                <ion-row>
+                                    <ion-col>
+                                    
+                                    <ion-item>
+                                      <ion-label>Ejercicio</ion-label>
+                                      <ion-select id="selected-exc" interface="popover">
+                                      </ion-select>
+                                    </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row class="ion-align-items-end" title="Dominio de X">
                                     <ion-col>    
                                         <ion-item>
-                                            <ion-label position='floating'>Desde</ion-label>
-                                            <ion-input disabled=true id="X-from" placeholder="-1" value="-1" type="number"></ion-input>
+                                            <ion-label>
+                                                <p>Desde</p>
+                                                <div id="X-from">-1</div>
+                                            </ion-label>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col>
@@ -71,41 +86,40 @@
                                     </ion-col>
                                     <ion-col>
                                         <ion-item>
-                                        <ion-label position='floating'>Hasta</ion-label>
-                                        <ion-input disabled=true id="X-to" placeholder="1" value="1"  type="number"></ion-input> 
+                                        <ion-label class="ion-text-right">
+                                                <p>Hasta</p>
+                                                <div id="X-to">1</div>
+                                        </ion-label>
                                         </ion-item>
                                     </ion-col>
                                 </ion-row>
                                 
+
                                 <ion-row>
                                     <ion-col>
-                                    <ion-item>
-                                        <ion-label position='inline'>\(Y(X)\) =</ion-label>
-                                        <ion-input disabled=true id="Y-X" placeholder="x^2" value="x^2"></ion-input>
+                                    <ion-item title="Funcion de densidad de X en su dominio">
+                                        <ion-label>\(f_X(x)\) = <span id="fX-x">1/2</span></ion-label>
                                     </ion-item>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col>
-                                    <ion-item>
-                                        <ion-label position='inline'>\(f_X(x)\) =</ion-label>
-                                        <ion-input disabled=true id="fx-X" placeholder="1/2" value="1/2"></ion-input>
+                                    <ion-item title="Y en funcion de X">
+                                        <ion-label>\(Y(X)\) = <span id="Y-X">x^2</span>
+                                        </ion-label>
                                     </ion-item>
                                     </ion-col>
                                 </ion-row>
 
-                                <ion-row>
-                                    <ion-col>
-                                    <ion-button id="next"><ion-icon name="log-in" slot="start"></ion-icon>Siguiente ejemplo</ion-button>
-                                    <ion-button disabled=true id="limpiar" fill="outline" color="danger"><ion-icon name="close" slot="start"></ion-icon>Limpiar</ion-button>
-                                    </ion-col>
-                                </ion-row>
                             </ion-grid>
+
+                           
                         </ion-card-content>
                     </ion-card>
 
                     <ion-card>
+                        <ion-progress-bar value=0.3></ion-progress-bar>
                         <ion-card-header>
                             
                             <span style="color:grey">Funcion de distribucion</span><br>
@@ -116,7 +130,16 @@
                         </ion-card-header>
 
                         <ion-card-content>
-                            <div id="Fy-Y-graph"></div>
+                            <ion-item>
+                                <ion-label>Mostrar solucion</ion-label>
+                                <ion-checkbox id="show-solution"></ion-checkbox>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-range pin="true"></ion-range>
+                            </ion-item>
+
+                            <div hidden=true id="Fy-Y-graph"></div>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>
@@ -164,6 +187,8 @@
 
 
 <script src="js/main.js"></script>
+<script src="js/graph-interactions.js"></script>
+
 
 
 </body>
