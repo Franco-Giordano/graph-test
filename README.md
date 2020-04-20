@@ -1,4 +1,8 @@
-# Ensayo de Grafico Interactivo
+# Graficador de Funciones de VAs
+<p align="center">
+<img width=350 src="./media/equations.png"></img>
+</p>
+
 En construccion. Utiliza componentes de [Ionic Framework](https://ionicframework.com/), la libreria [function-plot](https://mauriciopoppe.github.io/function-plot/) para graficos y [MathJax](https://www.mathjax.org/) para renderizar ecuaciones al estilo LaTex.
 
 ## Licencia
