@@ -143,6 +143,11 @@ var instancefy, instancefx, instanceY;
 
 function drawAllGraphs(excercise) {
 
+    var slider = document.querySelector("#eval-FY");
+
+    slider.min = excercise.Yfrom;
+    slider.max = excercise.Yto;
+
     var inputXfrom = Number(excercise.Xfrom);
     var inputXto = Number(excercise.Xto);
 
@@ -236,6 +241,10 @@ function drawAllGraphs(excercise) {
     instancefx.addLink(instanceY);
 
     instancefy.on('tip:update', updateIntegratedArea);
+    slider.addEventListener('ionChange', () => {
+        updateIntegratedArea(slider.value);
+        console.log(slider.value);
+    })
 
 }
 
@@ -405,4 +414,5 @@ var checkboxElement = document.querySelector("#show-solution");
 
 checkboxElement.addEventListener('ionChange', () => {
     document.querySelector("#Fy-Y-graph").hidden = !document.querySelector("#Fy-Y-graph").hidden;
+    document.querySelector("#eval-FY-item").hidden = !document.querySelector("#eval-FY-item").hidden;
 });
