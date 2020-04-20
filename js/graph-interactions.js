@@ -38,7 +38,7 @@ window.addEventListener('resize', () => {
 
 // graph related code
 
-function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, stringY, myFY, strYfrom, strYto, funcSolveXs) {
+function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, stringY, myFY, strYfrom, strYto, funcSolveXs, enunciado) {
         this.displayText = strdisplayText;
         this.Xfrom = Number(stringXfrom);
         this.Xto = Number(stringXto);
@@ -65,11 +65,12 @@ function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, 
         
 
         this.findAllXs = funcSolveXs;
+        this.enunciado = enunciado;
 }
 
 // indice del excercise coincide con su selectOption.value
 var ejerciciosResueltos = [
-        new Excercise("Adicional #1", "-1", "1", "1/2", [-0.5,1],"x^2", "nthRoot(x,2)","0", "1", (givenY) => {return [-Math.sqrt(givenY), Math.sqrt(givenY)];}),
+        new Excercise("Adicional #1", "-1", "1", "1/2", [-0.5,1],"x^2", "nthRoot(x,2)","0", "1", (givenY) => {return [-Math.sqrt(givenY), Math.sqrt(givenY)];}, `Sea X una variable aleatoria continua con distribucion uniforme en (-1,1). Obtenga la funcion de distribucion de \\(Y=X^2\\)`),
         new Excercise("2.29",
             "-2", "4",
             "1/6", [-0.5, 1/3],
@@ -89,7 +90,8 @@ var ejerciciosResueltos = [
             "0",
             "16",
             (givenY) => {return givenY < 4 ? [-Math.sqrt(givenY), Math.sqrt(givenY)]
-                                            : [-2, Math.sqrt(givenY)];},)
+                                            : [-2, Math.sqrt(givenY)];},
+            `Sea X una variable aleatoria continua con distribucion uniforme en (-2,4). Obtenga la funcion de densidad de \\(Y=X^2\\)`)
 ]
 
 var excerciseSelectElement = document.querySelector("#selected-exc");
@@ -138,10 +140,19 @@ excerciseSelectElement.addEventListener('ionChange', () => {
 // first plot
 drawAllGraphs(ejerciciosResueltos[0]);
 
+document.querySelector("#eval-FY").addEventListener('ionChange', () => {
+    updateIntegratedArea(document.querySelector("#eval-FY").value);
+})
+
 
 var instancefy, instancefx, instanceY;
 
 function drawAllGraphs(excercise) {
+
+    var slider = document.querySelector("#eval-FY");
+
+    slider.min = excercise.Yfrom;
+    slider.max = excercise.Yto;
 
     var inputXfrom = Number(excercise.Xfrom);
     var inputXto = Number(excercise.Xto);
@@ -150,7 +161,7 @@ function drawAllGraphs(excercise) {
     var inputY = excercise.Y;
 
     var funcFY = excercise.FY.concat([{fn: "0", color: "steelblue", range: [-1000, excercise.Yfrom], skipTip:true}, {fn: "1", color: "steelblue", range: [excercise.Yto, 1000], skipTip:true}]);
-    console.log(funcFY)
+
     instanceY = functionPlot({
         title: "Y(X)",
         target: '#Y-X-graph',
@@ -212,7 +223,7 @@ function drawAllGraphs(excercise) {
         tip: {
             xLine: true,    // dashed line parallel to y = 0
             renderer: function (x, y, index) {
-              return '      y = ' + y;
+              return '      y = ' + x;
             }
         },
         data: funcFY,
@@ -350,6 +361,8 @@ async function handlePlayClick() {
     if (playing)
         return;
 
+    var slider = document.querySelector("#eval-FY");
+
     var currentExc = getCurrentExcercise();
 
     playing = true;
@@ -383,9 +396,9 @@ async function handlePlayClick() {
             height: my_height
         });
 
-        instancefy.on('tip:update', updateIntegratedArea);
+        slider.value = i;
 
-        instancefy.emit('tip:update', i, i, 0);
+        //instancefy.on('tip:update', updateIntegratedArea);
 
         await sleep(15);
     }
@@ -405,4 +418,5 @@ var checkboxElement = document.querySelector("#show-solution");
 
 checkboxElement.addEventListener('ionChange', () => {
     document.querySelector("#Fy-Y-graph").hidden = !document.querySelector("#Fy-Y-graph").hidden;
+    document.querySelector("#eval-FY-item").hidden = !document.querySelector("#eval-FY-item").hidden;
 });

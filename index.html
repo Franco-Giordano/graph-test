@@ -122,6 +122,12 @@
                                     </ion-col>
                                 </ion-row>
 
+                                <ion-row>
+                                    <ion-col>
+                                            <ion-button id="ver-enunciado-button" fill="clear" expand="block"><p style="font-weight: 501">Ver enunciado</p></ion-button>
+                                    </ion-col>
+                                </ion-row>
+
                             </ion-grid>
 
                            
@@ -144,10 +150,11 @@
                                 <ion-checkbox checked=true id="show-solution"></ion-checkbox>
                             </ion-item>
 
-                            <!-- <ion-item>
+                            <ion-item hidden=true id="eval-FY-item">
                                 <ion-label position="floating"><p>Evaluar en \(y\):</p><br></ion-label>
                                 <ion-range pin="true" id="eval-FY"></ion-range>
-                            </ion-item> -->
+
+                            </ion-item>
 
                             <div id="Fy-Y-graph"></div>
                         </ion-card-content>
@@ -196,8 +203,8 @@
 </ion-app>
 
 
-<script src="js/main.js"></script>
 <script src="js/graph-interactions.js"></script>
+<script src="js/main.js"></script>
 
 
 
