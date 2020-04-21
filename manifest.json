@@ -1,0 +1,28 @@
+{
+  "name": "Graficador de FVAs",
+  "short_name": "Graficador",
+  "description": "Grafica funciones de variables aleatorias intuitivamente",
+  "theme_color": "#2196f3",
+  "background_color": "#2196f3",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/media/icon128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/media/icon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/media/icon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+
+}

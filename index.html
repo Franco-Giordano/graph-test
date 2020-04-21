@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graficador</title>
 
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
@@ -70,31 +77,31 @@
                                     </ion-col>
                                 </ion-row>
 
-                                <ion-row class="ion-align-items-end" title="Dominio de X">
-                                    <ion-col>    
+                                <ion-row class="ion-align-items-end ion-nowrap" title="Dominio de X">
+                                    <ion-col style="padding:0 !important;">    
                                         <ion-item>
-                                            <ion-label>
+                                            <ion-label class="">
                                                 <p>Desde</p>
                                                 <div id="X-from">-1</div>
                                             </ion-label>
                                         </ion-item>
                                     </ion-col>
-                                   <ion-col>
-                                        <ion-item  class="ion-text-center">
+                                   <ion-col style="padding:0 !important;">
+                                        <ion-item class="ion-text-center">
                                             <ion-label>\(\lt\)</ion-label>
                                         </ion-item>
                                     </ion-col>
-                                   <ion-col>
+                                   <ion-col style="padding:0 !important;">
                                         <ion-item  class="ion-text-center">
                                             <ion-label>\(X\)</ion-label>
                                         </ion-item>
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col style="padding:0 !important;">
                                         <ion-item  class="ion-text-center">
                                             <ion-label>\(\lt\)</ion-label>
                                         </ion-item>
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col style="padding:0 !important;">
                                         <ion-item>
                                         <ion-label class="ion-text-right">
                                                 <p>Hasta</p>
