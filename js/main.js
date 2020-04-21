@@ -71,18 +71,30 @@ customElements.define('modal-page', class extends HTMLElement {
             <img src="./media/equations.png"/>
             <h2>Graficador de Funciones de VAs</h2>
             <p>Esta aplicacion interactiva te permite visualizar la funcion de distribucion de una variable aleatoria expresada en funcion de otra.</p>
+            <ion-button slot="end" onclick="dismissModal()" fill="clear">Cerrar ayuda</ion-button>
+            <ion-button slot="end" onclick="siguiente()" fill="clear">Ver mas</ion-button>
         </ion-slide>
 
         <ion-slide>
-          <img src="./media/slide-2.png"/>
-          <h2>Mira punto a punto el area a integrar</h2>
-          <p>Grafica la <strong>funcion de distribucion de la variable aleatoria Y</strong>, que depende de X. Trabaja con un ejemplo ya computado, detallado en la seccion Configuracion.</p>
+          <img src="./media/choose-excercise.gif"/>
+          <h2>Trabaja con ejercicios resueltos</h2>
+          <p>Primero elegi el ejercicio a trabajar en la seccion Configuracion, o mira el enunciado a trabajar.</p>
+          <ion-button slot="end" onclick="anterior()" fill="clear">Anterior</ion-button>
+          <ion-button slot="end" onclick="siguiente()" fill="clear">Siguiente</ion-button>
+        </ion-slide>
+
+        <ion-slide>
+          <img src="./media/animate-area.gif"/>
+          <h2>Visualiza el area a integrar</h2>
+          <p>Desplazate sobre los distintos valores de Y y su funcion de distribucion. El area en rojo indicara, para ese valor de Y, que area integrar para obtener \\(F_Y(y)\\)</p>
+          <ion-button slot="end" onclick="anterior()" fill="clear">Anterior</ion-button>
+          <ion-button slot="end" onclick="siguiente()" fill="clear">Siguiente</ion-button> <br><br><br><br>
         </ion-slide>
 
         <ion-slide>
           <img src="./media/slide-4.png"/>
           <h2>Comienza a graficar!</h2>
-          <p>Presiona el boton de reproducir mas abajo para ver, <strong>para cada valor de P(Y<=y), la region a integrar en X.</strong></p>
+          <p>Si queres ocultar el grafico de \\(F_Y(y)\\), simplemente desactiva la opcion 'Mostrar solucion'.</p>
           <ion-button slot="end" onclick="dismissModal()" fill="clear">Cerrar ayuda</ion-button>
 
         </ion-slide>
@@ -96,6 +108,7 @@ customElements.define('modal-page', class extends HTMLElement {
 
     .swiper-slide {
       display: block;
+      padding-bottom: 50px;
     }
 
     .swiper-slide h2 {
@@ -107,6 +120,10 @@ customElements.define('modal-page', class extends HTMLElement {
       max-width: 80%;
       margin: 60px 0 40px;
       pointer-events: none;
+    }
+
+    .swiper-slide ion-button {
+      margin: 0px 0 500px;
     }
 
     b {
@@ -125,6 +142,8 @@ customElements.define('modal-page', class extends HTMLElement {
     }
   </style>
 `;
+MathJax.typeset();
+
   }
 });
 
@@ -168,6 +187,14 @@ async function createModal() {
 
   await modal.present();
   currentModal = modal;
+}
+
+function siguiente() {
+    document.querySelector("ion-slides").slideNext();
+}
+
+function anterior() {
+    document.querySelector("ion-slides").slidePrev();
 }
 
 function dismissModal() {
