@@ -84,7 +84,7 @@ customElements.define('modal-page', class extends HTMLElement {
         </ion-slide>
 
         <ion-slide>
-          <img src="./media/animate-area.gif"/>
+          <img src="./media/animate-area.gif" style="max-height: 70%;max-width: 80%; margin: 10px 0 10px;"/>
           <h2>Visualiza el area a integrar</h2>
           <p>Desplazate sobre los distintos valores de Y y su funcion de distribucion. El area en rojo indicara, para ese valor de Y, que area integrar para obtener \\(F_Y(y)\\)</p>
           <ion-button slot="end" onclick="anterior()" fill="clear">Anterior</ion-button>
