@@ -68,12 +68,19 @@ function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, 
         this.enunciado = enunciado;
 }
 
+// missing: "2.31", "2.32", "2.33", "2.36"
 // indice del excercise coincide con su selectOption.value
+// new Excercise (strdisplayText, stringXfrom, stringXto, stringfX, VerticalDomainfx, stringY, myFY, strYfrom, strYto, funcSolveXs, enunciado)
 var ejerciciosResueltos = [
-        new Excercise("Adicional #1", "-1", "1", "1/2", [-0.5,1],"x^2", "nthRoot(x,2)","0", "1", (givenY) => {return [-Math.sqrt(givenY), Math.sqrt(givenY)];}, `Sea X una variable aleatoria continua con distribucion uniforme en (-1,1). Obtenga la funcion de distribucion de \\(Y=X^2\\)`),
+        new Excercise("Adicional #1",
+            "-1", "1",
+            "1/2", [-0.5,1],
+            "x^2", "nthRoot(x,2)","0", "1",
+            (givenY) => {return [-Math.sqrt(givenY), Math.sqrt(givenY)];},
+            `Sea X una variable aleatoria continua con distribucion uniforme en (-1,1). Obtenga la funcion de distribucion de \\(Y=X^2\\)`),
         new Excercise("2.29",
             "-2", "4",
-            "1/6", [-0.5, 1/3],
+            "1/6", [-0.2, 1/3],
             "x^2",
             [{  fn: "nthRoot(x,2)/3",
                 attr: {
@@ -91,7 +98,19 @@ var ejerciciosResueltos = [
             "16",
             (givenY) => {return givenY < 4 ? [-Math.sqrt(givenY), Math.sqrt(givenY)]
                                             : [-2, Math.sqrt(givenY)];},
-            `Sea X una variable aleatoria continua con distribucion uniforme en (-2,4). Obtenga la funcion de densidad de \\(Y=X^2\\)`)
+            `Sea X una variable aleatoria continua con distribucion uniforme en (-2,4). Obtenga la funcion de densidad de \\(Y=X^2\\)`),
+
+        new Excercise("2.31", "4", "8", 
+            "1/4", [-0.2, 0.4],
+            "(x-6)^2 + 6", "nthRoot(x-6, 2)/2",
+            "6", "10",
+            (givenY) => {return [6-Math.sqrt(givenY-6), 6+Math.sqrt(givenY-6)]},
+            `La cantidad a producir es una variable aleatoria X con distribucion uniforme en (4,8), mientras que el costo sera de \\(Y=(X-6)^2+6\\). Calcule \\(P(Y>9)\\).<br>
+            <br>
+            Notas:<br>
+            &emsp;- \\(P(Y>9) = 1 - P(Y\\leq 9) = 1 - F_Y(9)\\)<br>
+            &emsp;- La relacion entre X e Y es equivalente a la mencionada por el ejercicio original.`
+            )
 ]
 
 var excerciseSelectElement = document.querySelector("#selected-exc");
@@ -107,7 +126,7 @@ ejerciciosResueltos.forEach((exc, i) => {
 
 
 // agregar placeholders
-["2.31", "2.32", "2.33", "2.36"].forEach((desc, i) => {
+["2.32", "2.33", "2.36"].forEach((desc, i) => {
     let selectOption = document.createElement('ion-select-option');
     selectOption.value = i + ejerciciosResueltos.length;
     selectOption.textContent = desc;

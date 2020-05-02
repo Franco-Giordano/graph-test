@@ -13,17 +13,13 @@ async function handleBugClick() {
             {
                 text: 'Enviar mail',
                 handler: () => {
-                    window.open("mailto:fgiordano@fi.uba.ar?subject=Reporte%20de%20Error%20-%20Graficador&body=En" +
-                            "tradas%20ingresadas%3A%0D%0A-%20Y(X)%3A%20%0D%0A-%20fx(X)%3A%20%0D%0A%0D%0APasos" +
-                            "%20para%20reproducir%3A%0D%0A%0D%0A%0D%0AComportamiento%20esperado%3A%0D%0A%0D%0" +
-                            "A%0D%0AComportamiento%20erroneo%3A%0D%0A%0D%0A%0D%0ANavegador(Chrome%2FFirefox)%" +
-                            "20y%20Plataforma(iOS%2FAndroid%2FWindows%2FLinux)%3A%0D%0A",
+                    window.open("mailto:fgiordano@fi.uba.ar?subject=Reporte%20de%20Error%20-%20Graficador",
                     '_blank');
                 }
             }, {
                 text: 'Nuevo Issue en GitHub',
                 handler: () => {
-                    window.open('https://github.com/Franco-Giordano/graph-test/issues/new', '_blank');
+                    window.open('https://github.com/Franco-Giordano/proba-graph/issues/new', '_blank');
                 }
             }, {
                 text: 'Cerrar',
