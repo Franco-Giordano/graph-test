@@ -85,6 +85,19 @@ var ejerciciosResueltos = [
             <br>
             Nota:<br>
             &emsp;- Volumen de una esfera: \\(Y = \\frac{4\\pi}{3} \\cdot X^3\\)`
+            ),
+        new Excercise("2.32 - B", "0", "1",
+            "6 * x * (1-x)", [-0.1, 2],
+            "4 * PI * x^2", "-2 * nthRoot(x/(4*PI), 2/3) + 3 * (x/(4*PI))",
+            "0", "12.56637061",
+            (givenY) => {return [0, Math.pow(givenY/(4*3.1415926535), 1/2)]},
+            `El radio X de una esfera en cm se considera una variable aleatoria continua. 
+            Supongamos que X tiene una funcion de densidad de probabilidad \\(f_X(x) = 6x(1-x)\\mathbb{1}_{(0,1)(x)}\\) <br>
+            <br>
+            Item B) Obtenga la funcion de densidad de probabilidad del area Y.<br>
+            <br>
+            Nota:<br>
+            &emsp;- Area de una esfera: \\(Y = 4\\pi \\cdot X^2\\)`
             )
 ]
 

@@ -51,7 +51,7 @@ ejerciciosResueltos.forEach((exc, i) => {
 
 
 // agregar placeholders
-["2.32", "2.33", "2.36"].forEach((desc, i) => {
+["2.33", "2.36"].forEach((desc, i) => {
     let selectOption = document.createElement('ion-select-option');
     selectOption.value = i + ejerciciosResueltos.length;
     selectOption.textContent = desc;
