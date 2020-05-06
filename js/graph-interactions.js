@@ -1,4 +1,3 @@
-"use strict";
 
 
 
@@ -51,7 +50,7 @@ ejerciciosResueltos.forEach((exc, i) => {
 
 
 // agregar placeholders
-["2.33", "2.36"].forEach((desc, i) => {
+["2.36"].forEach((desc, i) => {
     let selectOption = document.createElement('ion-select-option');
     selectOption.value = i + ejerciciosResueltos.length;
     selectOption.textContent = desc;
@@ -92,6 +91,7 @@ document.querySelector("#eval-FY").addEventListener('ionChange', () => {
 var instancefy, instancefx, instanceY;
 
 function drawAllGraphs(excercise) {
+
 
     var slider = document.querySelector("#eval-FY");
 
@@ -210,80 +210,177 @@ function updateIntegratedArea(x,y,index) {
 
     let myAnnotations = myAnnotationsX.concat([{y: givenY}]);
 
-    instanceY = functionPlot({
-        title: "Y(X)",
-        target: '#Y-X-graph',
-        data: [
-            {
-                fn: currentExc.Y,
-                attr: {
-                    "stroke-width": 5
+    if (currentExc.inverseRegions){
+        instanceY = functionPlot({
+            title: "Y(X)",
+            target: '#Y-X-graph',
+            data: [
+                {
+                    fn: currentExc.Y,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "red",
+                    range: [currentExc.Xfrom, allX[0]]
                 },
-                color:"red",
-                range: allX
-            },
-            {
-                fn: currentExc.Y,
-                attr: {
-                    "stroke-width": 5,
+                {
+                    fn: currentExc.Y,
+                    attr: {
+                        "stroke-width": 5
+                    },
+                    color:"steelblue",
+                    range: allX
                 },
-                color: "steelblue",
-                range: [currentExc.Xfrom, allX[0]]
-            },
-            {
-                fn: currentExc.Y,
-                attr: {
-                    "stroke-width": 5,
-                },
-                color: "steelblue",
-                range: [allX[1], currentExc.Xto]
-            }
-        ],
-        annotations: myAnnotations,
-        grid: true,
-        xAxis: {
-            label: 'x',
-            domain:  [currentExc.Xfrom - 1, currentExc.Xto + 1]
-        },
-        yAxis: {
-            label: 'y(x)',
-            domain:  [currentExc.Yfrom -1, currentExc.Yto + 1]
-        },
-        width: my_width,
-        height: my_height
-    });
+                {
+                    fn: currentExc.Y,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "red",
+                    range: [allX[1], currentExc.Xto]
+                }
 
-    instancefx = functionPlot({
-        title: "Funcion de densidad de X",
-        target: '#fx-X-graph',
-        data: [
-            {
-                fn: currentExc.fX,
-                attr: {
-                    "stroke-width": 5
-                },
-                range: [currentExc.Xfrom, currentExc.Xto]
+            ],
+            annotations: myAnnotations,
+            grid: true,
+            xAxis: {
+                label: 'x',
+                domain:  [currentExc.Xfrom - 1, currentExc.Xto + 1]
             },
-            {
-                fn: currentExc.fX,
-                color:"red",
-                closed:true,
-                range: allX
-            }
-        ],
-        annotations: myAnnotationsX,
-        grid: true,
-        xAxis: {
-            label: 'x',
-            domain:  [currentExc.Xfrom - 1, currentExc.Xto + 1]
-        },
-        yAxis: {
-            label: 'fX(x)',
-            domain:  currentExc.domainfx
-        },
-        width: my_width,
-        height: my_height
-    });
+            yAxis: {
+                label: 'y(x)',
+                domain:  [currentExc.Yfrom -1, currentExc.Yto + 1]
+            },
+            width: my_width,
+            height: my_height
+        });
+
+        instancefx = functionPlot({
+            title: "Funcion de densidad de X",
+            target: '#fx-X-graph',
+            data: [
+                {
+                    fn: currentExc.fX,
+                    closed:true,
+                    color: "red",
+                    range: [currentExc.Xfrom, allX[0]]
+                },
+                {
+                    fn: currentExc.fX,
+                    attr: {
+                        "stroke-width": 5
+                    },
+                    color:"steelblue",
+                    range: allX
+                },
+                {
+                    fn: currentExc.fX,
+                    closed:true,
+                    color: "red",
+                    range: [allX[1], currentExc.Xto]
+                }
+
+            ],
+            annotations: myAnnotationsX,
+            grid: true,
+            xAxis: {
+                label: 'x',
+                domain:  [currentExc.Xfrom - 1, currentExc.Xto + 1]
+            },
+            yAxis: {
+                label: 'fX(x)',
+                domain:  currentExc.domainfx
+            },
+            width: my_width,
+            height: my_height
+        });
+
+    } else {
+        instanceY = functionPlot({
+            title: "Y(X)",
+            target: '#Y-X-graph',
+            data: [
+                {
+                    fn: currentExc.Y,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "steelblue",
+                    range: [currentExc.Xfrom, allX[0]]
+                },
+                {
+                    fn: currentExc.Y,
+                    attr: {
+                        "stroke-width": 5
+                    },
+                    color:"red",
+                    range: allX
+                },
+                {
+                    fn: currentExc.Y,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "steelblue",
+                    range: [allX[1], currentExc.Xto]
+                }
+
+            ],
+            annotations: myAnnotations,
+            grid: true,
+            xAxis: {
+                label: 'x',
+                domain:  [currentExc.Xfrom - 1, currentExc.Xto + 1]
+            },
+            yAxis: {
+                label: 'y(x)',
+                domain:  [currentExc.Yfrom -1, currentExc.Yto + 1]
+            },
+            width: my_width,
+            height: my_height
+        });
+
+        instancefx = functionPlot({
+            title: "Funcion de densidad de X",
+            target: '#fx-X-graph',
+            data: [
+                {
+                    fn: currentExc.fX,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "steelblue",
+                    range: [currentExc.Xfrom, allX[0]]
+                },
+                {
+                    fn: currentExc.fX,
+                    closed:true,
+                    color:"red",
+                    range: allX
+                },
+                {
+                    fn: currentExc.fX,
+                    attr: {
+                        "stroke-width": 5,
+                    },
+                    color: "steelblue",
+                    range: [allX[1], currentExc.Xto]
+                }
+            ],
+            annotations: myAnnotationsX,
+            grid: true,
+            xAxis: {
+                label: 'x',
+                domain:  [currentExc.Xfrom - 1, currentExc.Xto + 1]
+            },
+            yAxis: {
+                label: 'fX(x)',
+                domain:  currentExc.domainfx
+            },
+            width: my_width,
+            height: my_height
+        });
+    }
 
     instanceY.addLink(instancefx);
     instancefx.addLink(instanceY);

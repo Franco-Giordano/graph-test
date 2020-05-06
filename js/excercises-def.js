@@ -1,5 +1,5 @@
 
-function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, stringY, myFY, strYfrom, strYto, funcSolveXs, enunciado) {
+function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, stringY, myFY, strYfrom, strYto, funcSolveXs, enunciado, inverseRegions = false) {
         this.displayText = strdisplayText;
         this.Xfrom = Number(stringXfrom);
         this.Xto = Number(stringXto);
@@ -27,9 +27,10 @@ function Excercise (strdisplayText, stringXfrom, stringXto, stringfX, domainfx, 
 
         this.findAllXs = funcSolveXs;
         this.enunciado = enunciado;
+        this.inverseRegions = inverseRegions;
 }
 
-// missing: "2.32", "2.33", "2.36"
+// missing: "2.33", "2.36"
 // indice del excercise coincide con su selectOption.value
 // new Excercise (strdisplayText, stringXfrom, stringXto, stringfX, VerticalDomainfx, stringY, myFY, strYfrom, strYto, funcSolveXs, enunciado)
 var ejerciciosResueltos = [
@@ -98,7 +99,19 @@ var ejerciciosResueltos = [
             <br>
             Nota:<br>
             &emsp;- Area de una esfera: \\(Y = 4\\pi \\cdot X^2\\)`
-            )
+            ),
+        new Excercise("2.33", "0", "2",
+            "1-abs(x-1)", [-0.1, 1.2],
+            "10x-5x^2", "2 + ((1-sqrt(1-x/5))^2)/2 - 2*(1+sqrt(1-x/5)) + ((1+sqrt(1-x/5))^2)/2",
+            "0", "5",
+            (givenY) => {return [1 - Math.sqrt(1-givenY/5), 1 + Math.sqrt(1-givenY/5)]},
+            `El beneficio total de una empresa (en miles de pesos) esta dado por \\(Y=10X-5X^2\\) si X es la cantidad vendida, que se supone una
+             variable aleatoria continua con funcion de densidad de probabilidad: \\(f_X(x)=x \\cdot \\mathbb{1}_{(0,1)(x)} + (2 - x) \\cdot \\mathbb{1}_{(1,2)(x)}\\). <br>
+             <br>
+             Obtenga la funcion de distribucion de Y.<br>
+             <br>
+             Nota:<br>
+             &emsp;- La funcion de densidad de X es equivalente a: \\(f_X(x) = (1 - |x-1|) \\cdot \\mathbb{1}_{(0,2)(x)} \\)`, inverseRegions=true)
 ]
 
 /* new Excercise (strdisplayText, stringXfrom, stringXto,
