@@ -6,7 +6,7 @@ bug.addEventListener('click', handleBugClick);
 
 async function handleBugClick() {
     const alert = await alertController.create({
-        header: 'Reportar Error',
+        header: 'Reportar Error o Sugerencia',
         message: 'Envia un mail a <strong>fgiordano@fi.uba.ar</strong> o crea un <strong>nuevo iss' +
                 'ue</strong> en el repositorio de GitHub.',
         buttons: [
@@ -26,6 +26,22 @@ async function handleBugClick() {
                 role: 'cancel'
             }
         ]
+    });
+
+    await alert.present();
+}
+
+const info = document.querySelector('#ver-info');
+info.addEventListener('click', handleInfo);
+
+async function handleInfo() {
+    const alert = await alertController.create({
+        header: 'Sobre el proyecto',
+        message: `Esta aplicacion web esta dirigida a la materia <strong>81.03 Probabilidad y Estadística A</strong> de la Facultad de Ingenieria de la Universidad de Buenos Aires.<br>
+        <br>
+        Propone una forma visual e interactiva de visualizar los eventos equivalentes para una transformacion de variable aleatoria continua.
+         `,
+        buttons: ['Cerrar']
     });
 
     await alert.present();
@@ -65,7 +81,7 @@ customElements.define('modal-page', class extends HTMLElement {
 
         <ion-slide>
             <img src="./media/equations.png"/>
-            <h2>Graficador de Funciones de VAs</h2>
+            <h2>Graficador de Transformaciones de VAs</h2>
             <p>Esta aplicacion interactiva te permite visualizar la funcion de distribucion de una variable aleatoria expresada en funcion de otra.</p>
             <ion-button slot="end" onclick="dismissModal()" fill="clear">Cerrar ayuda</ion-button>
             <ion-button slot="end" onclick="siguiente()" fill="clear">Ver mas</ion-button>
