@@ -1,4 +1,4 @@
-# :chart_with_upwards_trend: Graficador de Funciones de VAs 
+# :chart_with_upwards_trend: Graficador de Transformaciones de VAs 
 <p align="center">
 <img width=350 src="./media/equations.png"></img>
 </p>
